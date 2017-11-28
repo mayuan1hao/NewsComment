@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gsw.news.dao.detail.DetailMapper">
+	<select id="getAllDetails" resultType="NewsDetail">
+		SELECT * FROM news_detail
+	</select>
+	
+	<delete id="delDetail" parameterType="int">
+		DELETE FROM news_detail WHERE id=#{id};
+	</delete>
+	
+	<select id="getDetailsByTitle" parameterType="String" resultType="NewsDetail">
+		SELECT * FROM news_detail WHERE title LIKE concat('%',#{title},'%');
+	</select>
+</mapper>

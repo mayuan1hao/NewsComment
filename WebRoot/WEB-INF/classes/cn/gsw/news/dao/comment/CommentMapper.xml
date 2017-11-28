@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gsw.news.dao.comment.CommentMapper">
+	<select id="getCommentsByid" parameterType="String" resultType="NewsComment">
+		SELECT * FROM news_comment WHERE newsid=#{id};
+	</select>
+	
+	<delete id="delCommentsBynewsid" parameterType="int">
+		DELETE FROM news_comment WHERE newsid=#{id};
+	</delete>
+	
+	<insert id="addComment" parameterType="NewsComment">
+		INSERT INTO news_comment (newsid, content, author, createdate)
+		VALUES(#{newsid},#{content},#{author},#{createdate});
+	</insert>
+</mapper>

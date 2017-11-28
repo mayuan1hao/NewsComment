@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- 通过这个配置文件完成mybatis与数据库的连接 -->
+<configuration>
+	<!-- 引入数据库连接文件database.properties -->
+	<properties resource="database.properties">
+	<!-- 两种方法引入数据库连接文件，在这里两种都列出了，由于使用resource了，所以下面的property无效（被覆盖）
+		但是使用resource需要在environment里的dataSource添加配置
+	 -->
+		<!-- <property name="driver" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/smbms?relaxAutoCommit=true&amp;zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
+		<property name="username" value="root"/>
+		<property name="password" value="gsw477779"/> -->
+	</properties>
+	<!-- 配置myBatis的log实现为LOG4J，在运行时打印日志记录 -->
+	<settings>
+		<setting name="logImpl" value="LOG4J"/>
+		<setting name="autoMappingBehavior" value="FULL"/>
+	</settings>
+	<!-- 配置别名 -->
+	<typeAliases>
+		<package name="cn.gsw.news.bean"/>
+	</typeAliases>
+	<!-- 配置myBatis多套运行环境 default指定当前默认的运行环境 -->
+	<environments default="development">
+		<environment id="development">
+			<!-- 配置事务管理，采用JDBC的事务管理 -->
+			<transactionManager type="JDBC"></transactionManager>
+			<!-- POOLED:mybatis自带的数据源，JNDI：基于tomcat的数据源 
+				在这里是为resource配置的详细信息，value对应的是database里的变量名
+			-->
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${user}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 将mapper文件加入到配置文件中 -->
+	<mappers>
+		<mapper resource="cn/gsw/news/dao/detail/DetailMapper.xml"/>
+		<mapper resource="cn/gsw/news/dao/comment/CommentMapper.xml"/>
+	</mappers>
+</configuration>
+
